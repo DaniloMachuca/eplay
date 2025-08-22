@@ -1,59 +1,50 @@
 import ProductsList from '../../components/ProductsList'
-import Game from '../../models/Game'
 
-import resident from '../../assets/images/resident.png'
-import fifa from '../../assets/images/fifa.png'
+import { Game } from '../../pages/Home'
+import { useEffect, useState } from 'react'
 
-const Jogos: Game[] = [
-  {
-    id: 1,
-    category: 'Ação',
-    description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror...',
-    image: resident,
-    infos: ['R$ 199,90', '-10%'],
-    system: 'Windows',
-    title: 'Resident Evil 4'
-  },
-  {
-    id: 2,
-    category: 'Ação',
-    description:
-      'Resident Evil 4, conhecido no Japão como Biohazard 4, é um jogo eletrônico de survival horror...',
-    image: resident,
-    infos: ['R$ 199,90', '-10%'],
-    system: 'Windows',
-    title: 'Resident Evil 4'
-  },
-  {
-    id: 3,
-    category: 'Esportes',
-    description:
-      'EA SPORTS™ FIFA 23 traz o Jogo de Todo Mundo aos gramados com a tecnologia HyperMotion2...',
-    image: fifa,
-    infos: ['R$ 99,90', '-50%'],
-    system: 'PS5',
-    title: 'FIFA 23'
-  },
-  {
-    id: 4,
-    category: 'Esportes',
-    description:
-      'EA SPORTS™ FIFA 23 traz o Jogo de Todo Mundo aos gramados com a tecnologia HyperMotion2...',
-    image: fifa,
-    infos: ['R$ 99,90', '-50%'],
-    system: 'PS5',
-    title: 'FIFA 23'
-  }
-]
+const Categories = () => {
+  const [gamesAcao, setGamesAcao] = useState<Game[]>([])
+  const [gamesEsporte, setGamesEsporte] = useState<Game[]>([])
+  const [gamesSimulacao, setGamesSimulacao] = useState<Game[]>([])
+  const [gamesLuta, setGamesLuta] = useState<Game[]>([])
+  const [gamesRPG, setGamesRPG] = useState<Game[]>([])
 
-const Categories = () => (
-  <>
-    <ProductsList games={Jogos} title="RPG" background="gray" />
-    <ProductsList games={Jogos} title="Ação" background="black" />
-    <ProductsList games={Jogos} title="Aventura" background="gray" />
-    <ProductsList games={Jogos} title="FPS" background="black" />
-  </>
-)
+  useEffect(() => {
+    fetch('https://ebac-fake-api.vercel.app/api/eplay/acao')
+      .then((res) => res.json())
+      .then((res) => setGamesAcao(res))
+
+    fetch('https://ebac-fake-api.vercel.app/api/eplay/esportes')
+      .then((res) => res.json())
+      .then((res) => setGamesEsporte(res))
+
+    fetch('https://ebac-fake-api.vercel.app/api/eplay/simulacao')
+      .then((res) => res.json())
+      .then((res) => setGamesSimulacao(res))
+
+    fetch('https://ebac-fake-api.vercel.app/api/eplay/luta')
+      .then((res) => res.json())
+      .then((res) => setGamesLuta(res))
+
+    fetch('https://ebac-fake-api.vercel.app/api/eplay/rpg')
+      .then((res) => res.json())
+      .then((res) => setGamesRPG(res))
+  }, [])
+
+  return (
+    <>
+      <ProductsList games={gamesAcao} title="Ação" background="black" />
+      <ProductsList games={gamesEsporte} title="Esportes" background="gray" />
+      <ProductsList games={gamesLuta} title="Esportes" background="black" />
+      <ProductsList games={gamesRPG} title="RPG" background="gray" />
+      <ProductsList
+        games={gamesSimulacao}
+        title="Simulação"
+        background="black"
+      />
+    </>
+  )
+}
 
 export default Categories

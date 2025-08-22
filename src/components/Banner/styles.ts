@@ -8,6 +8,7 @@ export const Imagem = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   font-weight: bold;
+  position: relative;
 
   .container {
     padding-top: 340px;
@@ -20,6 +21,16 @@ export const Imagem = styled.div`
   ${TagContainer} {
     position: absolute;
     top: 32px;
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.56);
   }
 `
 

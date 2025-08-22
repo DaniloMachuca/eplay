@@ -27,3 +27,11 @@ export const ButtonLink = styled(Link)`
     color: ${colors.white};
   }
 `
+
+export const ButtonDisabled = styled.button`
+  ${ButtonStyles}
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: ${colors.gray};
+  border: 2px solid ${colors.white};
+`
